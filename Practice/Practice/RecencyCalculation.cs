@@ -8,22 +8,8 @@
 	{
 		public void Solution()
 		{
-			//Define the test data. 
-			IList<Event> eventSet = new List<Event>();
-			eventSet.Add(new Event('A', 2));
-			eventSet.Add(new Event('A', 4));
-			eventSet.Add(new Event('A', 8));
-			eventSet.Add(new Event('A', 10));
-			eventSet.Add(new Event('A', 12));
-			eventSet.Add(new Event('B', 1));
-			eventSet.Add(new Event('B', 3));
-			eventSet.Add(new Event('B', 6));
-			eventSet.Add(new Event('B', 13));
-			eventSet.Add(new Event('C', 2));
-			eventSet.Add(new Event('C', 5));
-			eventSet.Add(new Event('C', 7));
-			eventSet.Add(new Event('C', 9));
-			eventSet.Add(new Event('C', 15));
+			// Arrange test data.
+			IList<Event> eventSet = GetTestData();
 			int[] ageGroups = new int[3] { 1, 5, 8 };
 			int asOfTime = 10;
 
@@ -79,6 +65,28 @@
 			}
 
 			return result;
+		}
+
+		private IList<Event> GetTestData()
+		{
+			IList<Event> eventSet = new List<Event>();
+			//Define the test data. 
+			eventSet = new List<Event>();
+			eventSet.Add(new Event('A', 2));
+			eventSet.Add(new Event('A', 4));
+			eventSet.Add(new Event('A', 8));
+			eventSet.Add(new Event('A', 10));
+			eventSet.Add(new Event('A', 12));
+			eventSet.Add(new Event('B', 1));
+			eventSet.Add(new Event('B', 3));
+			eventSet.Add(new Event('B', 6));
+			eventSet.Add(new Event('B', 13));
+			eventSet.Add(new Event('C', 2));
+			eventSet.Add(new Event('C', 5));
+			eventSet.Add(new Event('C', 7));
+			eventSet.Add(new Event('C', 9));
+			eventSet.Add(new Event('C', 15));
+			return eventSet;
 		}
 	}
 }

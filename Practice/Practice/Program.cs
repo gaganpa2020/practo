@@ -5,7 +5,10 @@
 		static void Main(string[] args)
 		{
 			// Recency Calculation
-			new RecencyCalculation().Solution();
+			 new RecencyCalculation().Solution();
+
+			// Shortest point
+			new ShortestPath().Solution();
 		}
 	}
 }
