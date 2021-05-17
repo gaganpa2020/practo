@@ -42,26 +42,49 @@
 				}
 			}
 
+
+			// Check if account doesn't exist in data structure. 
+			if (!graph.ContainsKey(toAccount))
+			{
+				Console.WriteLine("Target account not found!");
+				throw new Exception("Target account not found!");
+			}
+
+
 			// Traverse and send results. 
-			return ShortestPathInternal(graph, toAccount, asOfTime);
+			ArrayList result = ShortestPathInternal(graph, toAccount, asOfTime);
+
+			if (result.Count > 0)
+			{
+				Console.WriteLine(string.Join("->", result.ToArray()));
+			}
+			else
+			{
+				Console.WriteLine("No path found at point in time!");
+				throw new Exception("No path found at point in time!");
+			}
+
+			return result.Count;
 		}
 
 		// Traverse the graph
-		private int ShortestPathInternal(IDictionary<string, Node> graph, string toAccount, int asOfTime)
+		private ArrayList ShortestPathInternal(IDictionary<string, Node> graph, string toAccount, int asOfTime)
 		{
 			KeyValuePair<string, Node> head = graph.First();
 			ArrayList visited = new ArrayList();
 
-			while (head.Key != toAccount && head.Value.Timestamp <= asOfTime)
+			while (head.IsNotNull() && head.Key != toAccount && head.Value.Timestamp <= asOfTime)
 			{
 				visited.Add(head.Key);
 				var adjacentNodes = graph.Where(x => head.Value.AdjacentNodes.Contains(x.Key));
 				head = (from p in adjacentNodes
-						orderby p.Value.Timestamp ascending
-						select p).First();
+						where (p.Value.AdjacentNodes.Contains(toAccount) || p.Value.AdjacentNodes.Any())
+						&& !visited.Contains(p.Key)
+						orderby p.Value.Timestamp descending
+						select p).FirstOrDefault();
 			}
 
-			return visited.Count;
+			return visited;
 		}
 
 		private IList<DataTransaction> GetTestData()
