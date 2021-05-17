@@ -8,7 +8,7 @@
 			 new RecencyCalculation().Solution();
 
 			// Shortest point
-			new ShortestPath().Solution();
+			new ShortestPathSolution().Solution();
 		}
 	}
 }
